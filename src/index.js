@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './Main.jsx';
-import Page1 from './Page1';
-import Page2 from './Page2';
+import Organizers from './Organizers.jsx';
+import Guests from './Guests.jsx';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -12,8 +12,8 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/page1" element={<Page1 />} />
-      <Route path="/page2" element={<Page2 />} />
+      <Route path="/organizers" element={<Organizers />} />
+      <Route path="/guests" element={<Guests />} />
     </Routes>
   </BrowserRouter>
 );

@@ -1,28 +1,5 @@
 import React from 'react';
 
-/*const SimpleTable = ({ data }) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Age</th>
-          <th>City</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            <td>{item.name}</td>
-            <td>{item.age}</td>
-            <td>{item.city}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};*/
-
 let equipos = [
     {
         id: 1,
@@ -51,7 +28,7 @@ const SimpleTable = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {equipos.map((equipo, index) => (
+                {data.map((equipo, index) => (
                     <>
                     <tr>
                         <td>{equipo.id}</td>
@@ -60,9 +37,10 @@ const SimpleTable = ({ data }) => {
                         <td>{equipo.categoria}</td>
                         <td>{equipo.puntaje}</td>
                         <td>{equipo.responsable_1 || 'Sin responsable'}</td>
-                    </tr>{/*<tr>
+                    </tr><tr>
                             <td colspan="5">
-                                <table v-if="equipo.invitados && equipo.invitados.length">
+                                {equipo.invitados && equipo.invitados.length ? (
+                                    <table>
                                     <thead>
                                         <tr>
                                             <th>DNI</th>
@@ -71,15 +49,16 @@ const SimpleTable = ({ data }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="inv in equipo.invitados">
+                                        {equipo.invitados.map((inv, index) => 
+                                        <tr>
                                             <td>{inv.dni}</td>
                                             <td>{inv.nombre_apellido}</td>
                                             <td>{inv.dieta}</td>
-                                        </tr>
+                                        </tr>)}
                                     </tbody>
-                                </table>
+                                </table>)  : (<></>)}
                             </td>
-                        </tr>*/}
+                        </tr>
                         </>))}
             </tbody>
         </table>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SimpleTable from './components/SimpleTable.jsx';
+import TeamTable from './components/TeamTable.jsx';
+import TeamForm from './components/TeamForm.jsx';
 
 
 function Organizers() {
@@ -64,7 +65,8 @@ function Organizers() {
         <p>
           Pagina1
         </p>
-        <SimpleTable data={data} />
+        <TeamTable data={data} />
+        <TeamForm data={data} />
         <button onClick={() => navigate('/')}>Go to Main</button>
         <button onClick={() => navigate('/organizers')}>Go to organizers</button>
         <button onClick={() => navigate('/guests')}>Go to guests</button>

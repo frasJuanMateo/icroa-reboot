@@ -12,34 +12,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-"""class Invitado(db.Model):
-    __tablename__ = 'invitados'
-    
-    dni = db.Column(db.BigInteger, primary_key=True)
-    id_equipo = db.Column(db.BigInteger, db.ForeignKey('equipos.id'))
-    nombre_apellido = db.Column(db.String(255), nullable=False)
-    dieta = db.Column(db.String(255), nullable=False)
-
-class Equipo(db.Model):
-    __tablename__ = 'equipos'
-
-    id = db.Column(db.BigInteger, primary_key=True)
-    nombre = db.Column(db.String(255), nullable=False)
-    categoria = db.Column(db.String(255), nullable=False)
-    responsable_1_id = db.Column(db.BigInteger, db.ForeignKey('invitados.dni'), nullable=True)
-    responsable_2_id = db.Column(db.BigInteger, db.ForeignKey('invitados.dni'), nullable=True)
-    deporte = db.Column(db.String(255), nullable=False)
-    puntaje = db.Column(db.BigInteger, nullable=False)
-    
-    invitados = db.relationship('Invitado', backref='equipo', lazy=True, foreign_keys='Invitado.id_equipo')
-
-    responsable_1 = db.relationship('Invitado', foreign_keys=[responsable_1_id], backref='equipos_como_responsable1')
-    responsable_2 = db.relationship('Invitado', foreign_keys=[responsable_2_id], backref='equipos_como_responsable2')
-
-
-#with app.app_context():
-#    db.create_all()"""
-
 with app.app_context():
     metadata = MetaData()
     metadata.reflect(bind=db.engine)
@@ -99,36 +71,6 @@ def equipos_registro():
         return jsonify(data)
 
 
-"""@app.route("/nuevo_equipo", methods=["POST"])
-def nuevo_equipo():
-    if request.method == "OPTIONS":
-        return '', 204
-    data = request.json
-    print(data)
-    nuevo = Equipo(
-        nombre=data["nombre"],
-        categoria=data["categoria"],
-        deporte=data["deporte"],
-        puntaje=data["puntaje"],
-        responsable_1_id=None,
-        responsable_2_id=None
-    )
-    db.session.add(nuevo)
-    db.session.commit()
-    return jsonify({"mensaje": "Equipo creado"})
-
-@app.route("/nuevo_invitado", methods=["POST"])
-def nuevo_invitado():
-    data = request.json
-    nuevo = Invitado(
-        dni=data["dni"],
-        nombre_apellido=data["nombre_apellido"],
-        dieta=data["dieta"],
-        id_equipo=data["id_equipo"]
-    )
-    db.session.add(nuevo)
-    db.session.commit()
-    return jsonify({"mensaje": "Invitado creado correctamente"})"""
 
 if __name__ == "__main__":
     app.run(debug=True)

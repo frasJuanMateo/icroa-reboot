@@ -6,6 +6,7 @@ import Main from './Main.jsx';
 import Organizers from './Organizers.jsx';
 import Guests from './Guests.jsx';
 import reportWebVitals from './reportWebVitals';
+import Teams from './Teams.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
       <Route path="/" element={<Main />} />
       <Route path="/organizers" element={<Organizers />} />
       <Route path="/guests" element={<Guests />} />
+      <Route path="organizers/teams" element={<Teams />} />
     </Routes>
   </BrowserRouter>
 );

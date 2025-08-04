@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `partido`(
     FOREIGN KEY (`equipo_2_id`) REFERENCES `equipos` (`id`),
     FOREIGN KEY (`arbitro_id`) REFERENCES `organizadores` (`dni`)
 );
+
 CREATE TABLE IF NOT EXISTS `fixture`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
 );

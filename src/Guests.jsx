@@ -6,12 +6,12 @@ function Guests() {
 
   return (
     <div className="App"> 
-        <p>
-          Pagina2
-        </p>
-        <button onClick={() => navigate('/')}>Go to Main</button>
-        <button onClick={() => navigate('/organizers')}>Go to organizers</button>
-        <button onClick={() => navigate('/guests')}>Go to guests</button>
+        <p>Invitados</p>
+        <div className="button-container">
+            <button onClick={() => navigate('/')}>Go to Main</button>
+            <button onClick={() => navigate('/organizers')}>Go to organizers</button>
+            <button onClick={() => navigate('/guests')}>Go to guests</button>
+        </div>
     </div>
   );
 }

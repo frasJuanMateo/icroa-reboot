@@ -1,5 +1,30 @@
 import React from 'react';
 
+
+
+const tableStyle = {
+    border: "4px solid #ddd !important",
+    backgroundColor: "#2823c2",
+    color: "white",
+    borderRadius: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    fontSize: "16px",
+    textAlign: "center",
+    margin: "20px auto",
+    padding: "20px",
+    borderCollapse: "collapse",
+    width: "80%",
+    minWidth: "600px",
+    tableLayout: "fixed",
+    width: "80%",
+    minWidth: "1000px",
+    margin: "0 auto",
+    borderTop: "1px solid #999",
+    borderBottom: "1px solid #999",
+};
+
+
 let equipos = [
     {
         id: 1,
@@ -14,10 +39,12 @@ let equipos = [
         ]
     }];
 
-const SimpleTable = ({ data }) => {
+const TeamTable = ({ data }) => {
     return (
-        <table class="tabla">
+        <table class="tabla" style={tableStyle}>
+            
             <thead>
+                <caption style={{textAlign:"center", justifyContent:"center"}}>Equipos Registrados</caption>
                 <tr>
                     <th>ID</th>
                     <th>Nombre del Equipo</th>
@@ -65,4 +92,4 @@ const SimpleTable = ({ data }) => {
     );
 };
 
-export default SimpleTable;
+export default TeamTable;

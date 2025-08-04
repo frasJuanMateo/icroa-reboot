@@ -28,6 +28,7 @@ function Main() {
 
   return (
     <section>
+      <title>ICROA</title>
       <div class="container" style={sectionStyle}>
         <button onClick={() => navigate('/organizers')}
           style={buttonStyle}

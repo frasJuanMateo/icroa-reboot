@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import FondoDeporte from './img/fondo_deporte.png';
+import Navbar from './components/NavBar';
+import Footer from './components/Foot';
 
 function Main() {
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ function Main() {
 
   return (
     <section>
+      <Navbar />
       <title>ICROA</title>
       <div class="container" style={sectionStyle}>
         <button onClick={() => navigate('/organizers')}
@@ -45,8 +48,9 @@ function Main() {
         </button>
         <h4>INVITADOS</h4>
       </div>
+    <Footer />
     </section>
-  );
+    );
 }
 
 export default Main;

@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, origins="*", supports_credentials=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/app_renault'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:461315@localhost:3306/app_renault'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -70,6 +70,45 @@ def equipos_registro():
             data.append(equipo_data)
         return jsonify(data)
 
+@app.route("/subir_equipo", methods=["POST"])
+def registrar_equipo():
+    data = request.get_json()
+
+    nombre = data.get("nombre")
+    categoria = data.get("categoria")
+    deporte = data.get("deporte")
+    puntaje = data.get("puntaje", 0)
+    responsable_1_id = data.get("responsable_1_id")
+    responsable_2_id = data.get("responsable_2_id")
+    #invitados_data = data.get("invitados", [])
+
+    with db.engine.begin() as conn:
+        result = conn.execute(
+            insert(equipos).values(
+                nombre=nombre,
+                categoria=categoria,
+                deporte=deporte,
+                puntaje=puntaje,
+                responsable_1_id=responsable_1_id,
+                responsable_2_id=responsable_2_id
+            )
+        )
+
+        # Obtener el ID del equipo recién insertado
+        equipo_id = result.inserted_primary_key[0]
+        """
+        # Insertar invitados si vienen en la petición
+        for invitado in invitados_data:
+            conn.execute(
+                insert(invitados).values(
+                    dni=invitado["dni"],
+                    nombre_apellido=invitado["nombre_apellido"],
+                    dieta=invitado.get("dieta", ""),
+                    id_equipo=equipo_id
+                )
+            )"""
+
+    return jsonify({"message": "Equipo registrado correctamente", "equipo_id": equipo_id}), 201
 
 
 if __name__ == "__main__":

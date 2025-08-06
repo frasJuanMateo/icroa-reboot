@@ -1,14 +1,15 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TeamTable from './components/TeamTable.jsx';
-import TeamForm from './components/TeamForm.jsx';
-
+import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import TeamTable from "./components/TeamTable.jsx";
+import TeamForm from "./components/TeamForm.jsx";
+import "./Organizers.css";
+import CustomAppButton from "./components/CustomAppButton.jsx";
 
 function Organizers() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const baseUrl = "http://127.0.0.1:5000/equipos_registro";
   /*const [post, setPost] = useState({ name: "", email: "" })
   const [search, setSearch] = useState("");
@@ -46,31 +47,32 @@ function Organizers() {
     if (event.target.value == "<" && pageCounter > 1) { setMaxMin([min - 5, max - 5]); setPageCounter(pageCounter - 1) }
     if (event.target.value == ">" && pageCounter < parseFloat(data.length / 5)) { setMaxMin([min + 5, max + 5]); setPageCounter(pageCounter + 1) }
   };*/
-  
+
   useEffect(() => {
     fetch(baseUrl)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`${res.status}`);
-      }
-      else {return res.json();}
-    })
-    .then(res => setData(res))
-    .catch(error => console.error(error.message));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`${res.status}`);
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => setData(res))
+      .catch((error) => console.error(error.message));
   });
 
-
   return (
-    <div className="App"> 
-        <p>
-          Pagina1
-        </p>
-        <TeamTable data={data} />
-        <TeamForm data={data} />
-        <button onClick={() => navigate('/')}>Go to Main</button>
-        <button onClick={() => navigate('/organizers')}>Go to organizers</button>
-        <button onClick={() => navigate('/guests')}>Go to guests</button>
-    </div>  
+    <div className="App">
+      <p>Organizadores</p>
+      <CustomAppButton label="EQUIPOS" link="/organizers/teams" icon="M12,12.75c1.63,0,3.07,0.39,4.24,0.9c1.08,0.48,1.76,1.56,1.76,2.73L18,18H6l0-1.61c0-1.18,0.68-2.26,1.76-2.73C8.93,13.14,10.37,12.75,12,12.75zM4,13c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2s-2,0.9-2,2C2,12.1,2.9,13,4,13zM5.13,14.1C4.76,14.04,4.39,14,4,14c-0.99,0-1.93,0.21-2.78,0.58C0.48,14.9,0,15.62,0,16.43V18l4.5,0v-1.61C4.5,15.56,4.73,14.78,5.13,14.1zM20,13c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2s-2,0.9-2,2C18,12.1,18.9,13,20,13zM24,16.43c0-0.81-0.48-1.53-1.22-1.85C21.93,14.21,20.99,14,20,14c-0.39,0-0.76,0.04-1.13,0.1c0.4,0.68,0.63,1.46,0.63,2.29V18l4.5,0V16.43zM12,6c1.66,0,3,1.34,3,3c0,1.66-1.34,3-3,3s-3-1.34-3-3C9,7.34,10.34,6,12,6z"/>
+      <div className="button-container">
+        <button onClick={() => navigate("/")}>Go to Main</button>
+        <button onClick={() => navigate("/organizers")}>
+          Go to organizers
+        </button>
+        <button onClick={() => navigate("/guests")}>Go to guests</button>
+      </div>
+    </div>
   );
 }
 

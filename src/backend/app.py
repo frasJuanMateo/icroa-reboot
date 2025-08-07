@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, origins="*", supports_credentials=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/app_renault'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:461315@localhost:3306/app_renault'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -19,6 +19,29 @@ with app.app_context():
     equipos = Table('equipos', metadata, autoload_with=db.engine)
     invitados = Table('invitados', metadata, autoload_with=db.engine)
 
+@app.route("/invitados_registro", methods=["GET"])
+def invitados_registro():
+    with db.engine.connect() as conn:
+        result = conn.execute(select(invitados))
+        data = []
+        for row in result:
+
+            equipos_result = conn.execute(
+                select(equipos).where(equipos.c.id == row.id_equipo)
+            )
+
+            equipos_result = equipos_result.first()
+            if equipos_result:
+                equipo_nombre = equipos_result.nombre
+
+            invitado_data = {
+                "dni": row.dni,
+                "nombre_apellido": row.nombre_apellido,
+                "dieta": row.dieta,
+                "nombre_equipo": equipo_nombre if equipos_result else None
+            }
+            data.append(invitado_data)
+        return jsonify(data)
 
 @app.route("/equipos_registro", methods=["GET"])
 def equipos_registro():
@@ -70,6 +93,33 @@ def equipos_registro():
             data.append(equipo_data)
         return jsonify(data)
 
+@app.route("/subir_equipo", methods=["POST"])
+def registrar_equipo():
+    data = request.get_json()
+
+    nombre = data.get("nombre")
+    categoria = data.get("categoria")
+    deporte = data.get("deporte")
+    puntaje = data.get("puntaje", 0)
+    responsable_1_id = data.get("responsable_1_id")
+    responsable_2_id = data.get("responsable_2_id")
+    #invitados_data = data.get("invitados", [])
+
+    with db.engine.begin() as conn:
+        result = conn.execute(
+            insert(equipos).values(
+                nombre=nombre,
+                categoria=categoria,
+                deporte=deporte,
+                puntaje=puntaje,
+                responsable_1_id=responsable_1_id,
+                responsable_2_id=responsable_2_id
+            )
+        )
+
+        # Obtener el ID del equipo recién insertado
+        equipo_id = result.inserted_primary_key[0]
+    return jsonify({"message": "Equipo registrado correctamente", "equipo_id": equipo_id}), 201
 
 
 if __name__ == "__main__":

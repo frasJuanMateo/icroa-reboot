@@ -1,6 +1,5 @@
 import React from 'react';
-
-
+import { useState, useEffect } from 'react';
 
 const tableStyle = {
     border: "4px solid #ddd !important",
@@ -25,21 +24,23 @@ const tableStyle = {
 };
 
 
-let equipos = [
-    {
-        id: 1,
-        nombre: 'Equipo A',
-        deporte: 'Fútbol',
-        categoria: 'Adultos',
-        puntaje: 10,
-        responsable_1: 'Juan Pérez',
-        invitados: [
-            { dni: '12345678', nombre_apellido: 'Carlos López', dieta: 'Vegetariana' },
-            { dni: '87654321', nombre_apellido: 'Ana García', dieta: 'Sin gluten' }
-        ]
-    }];
+function TeamTable ({ inputedData }) {
 
-const TeamTable = ({ data }) => {
+    const [data, setData] = useState([])
+    const baseUrl = "http://127.0.0.1:5000/equipos_registro";
+
+    useEffect(() => {
+        fetch(baseUrl)
+        .then(res => {
+            if (!res.ok) {
+            throw new Error(`${res.status}`);
+            }
+            else { return res.json(); }
+        })
+        .then(res => setData(res))
+        .catch(error => console.error(error.message));
+    }, []);
+
     return (
         <table class="tabla" style={tableStyle}>
             

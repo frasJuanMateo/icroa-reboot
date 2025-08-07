@@ -48,19 +48,6 @@ function Organizers() {
     if (event.target.value == ">" && pageCounter < parseFloat(data.length / 5)) { setMaxMin([min + 5, max + 5]); setPageCounter(pageCounter + 1) }
   };*/
 
-  useEffect(() => {
-    fetch(baseUrl)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`${res.status}`);
-        } else {
-          return res.json();
-        }
-      })
-      .then((res) => setData(res))
-      .catch((error) => console.error(error.message));
-  });
-
   return (
     <div className="App">
       <p>Organizadores</p>

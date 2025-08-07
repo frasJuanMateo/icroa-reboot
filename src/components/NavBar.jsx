@@ -14,8 +14,8 @@ const Navbar = () => {
       <ul className="nav-links">
         <li><a href="#inicio" className="nav-item">Inicio</a></li>
         <li><a href="#servicios" className="nav-item">Servicios</a></li>
-        <li><a href="#nosotros" className="nav-item">Nosotros</a></li>
-        <li><a href="#portfolio" className="nav-item">Portfolio</a></li>
+        <li><a href="#nosotros" className="nav-item">Galeria</a></li>
+        <li><a href="#portfolio" className="nav-item">Fixture</a></li>
         <li><a href="#contacto" className="nav-item">Contacto</a></li>
       </ul>
     </nav>

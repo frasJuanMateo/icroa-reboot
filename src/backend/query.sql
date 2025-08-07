@@ -46,7 +46,13 @@ CREATE TABLE IF NOT EXISTS `fixture`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
 CREATE TABLE IF NOT EXISTS `horarios`(
-    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre` VARCHAR(255) NOT NULL,
+    `hora_inicio` TIME NOT NULL,
+    `hora_fin` TIME NOT NULL,
+    `numero_de_cancha` BIGINT NOT NULL,
+    `deporte` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (`numero_de_cancha`) REFERENCES `partido` (`numero_de_cancha`)
 );
 CREATE TABLE IF NOT EXISTS `eventos_de_escenario`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY

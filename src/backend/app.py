@@ -19,6 +19,29 @@ with app.app_context():
     equipos = Table('equipos', metadata, autoload_with=db.engine)
     invitados = Table('invitados', metadata, autoload_with=db.engine)
 
+@app.route("/invitados_registro", methods=["GET"])
+def invitados_registro():
+    with db.engine.connect() as conn:
+        result = conn.execute(select(invitados))
+        data = []
+        for row in result:
+
+            equipos_result = conn.execute(
+                select(equipos).where(equipos.c.id == row.id_equipo)
+            )
+
+            equipos_result = equipos_result.first()
+            if equipos_result:
+                equipo_nombre = equipos_result.nombre
+
+            invitado_data = {
+                "dni": row.dni,
+                "nombre_apellido": row.nombre_apellido,
+                "dieta": row.dieta,
+                "nombre_equipo": equipo_nombre if equipos_result else None
+            }
+            data.append(invitado_data)
+        return jsonify(data)
 
 @app.route("/equipos_registro", methods=["GET"])
 def equipos_registro():
@@ -96,18 +119,6 @@ def registrar_equipo():
 
         # Obtener el ID del equipo recién insertado
         equipo_id = result.inserted_primary_key[0]
-        """
-        # Insertar invitados si vienen en la petición
-        for invitado in invitados_data:
-            conn.execute(
-                insert(invitados).values(
-                    dni=invitado["dni"],
-                    nombre_apellido=invitado["nombre_apellido"],
-                    dieta=invitado.get("dieta", ""),
-                    id_equipo=equipo_id
-                )
-            )"""
-
     return jsonify({"message": "Equipo registrado correctamente", "equipo_id": equipo_id}), 201
 
 
